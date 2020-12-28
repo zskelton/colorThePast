@@ -9,15 +9,46 @@
   </head>
   <body onload="start()">
     <div id="all" style="padding: 10px">
-      <p>
-        COLOR THE PAST:
-        <input
-          type="button"
-          id="btn_start"
-          value="Start"
-          style="margin-left: 25px"
-        />
-      </p>
+      <div>
+        <p style="margin-bottom: 10px; display: inline">
+          COLOR THE PAST:
+          <input
+            type="button"
+            id="btn_copy"
+            value="Copy"
+            style="margin-left: 25px"
+            onclick="copyImage()"
+            class="small"
+          />
+          <input
+            type="button"
+            id="btn_color"
+            value="Grey"
+            style="margin-left: 25px"
+            onclick="toBW()"
+            class="small"
+          />
+          <input
+            type="button"
+            id="btn_bw"
+            value="Colorize"
+            style="margin-left: 25px"
+            onclick="toColor()"
+            class="small"
+          />
+          <label
+            style="
+              margin-left: 25px;
+              display: inline-block;
+              text-align: right;
+              width: 200px;
+            "
+            id="status"
+          >
+            Status
+          </label>
+        </p>
+      </div>
       <div id="body">
         <img
           id="origImg"
