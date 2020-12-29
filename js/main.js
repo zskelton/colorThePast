@@ -25,9 +25,9 @@ const copyImage = () => {
   const image = document.getElementById("image");
   const c = document.getElementById("canvas");
   const ctx = c.getContext("2d");
-
+  // Draw Image
   ctx.drawImage(image, 0, 0);
-
+  // Update Status
   updateStatus("Copy");
 };
 
@@ -37,22 +37,22 @@ const toBW = () => {
   const image = document.getElementById("image");
   const c = document.getElementById("canvas");
   const ctx = c.getContext("2d");
-
-  let x = 0;
-  let y = 0;
-  let width = image.width;
-  let height = image.height;
-
   // Copy Image
   ctx.drawImage(image, 0, 0);
   // Get Image Data
-  let pixel = ctx.getImageData(0, 0, image.width, image.height);
+  let imageBase = ctx.getImageData(0, 0, image.width, image.height);
   let data = pixel.data;
-  console.log(data);
   // Alter Each Pixel
+  let i = 0;
+  for (i = 0; i < data.length; i += 4) {
+    var avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+    data[i + 0] = avg;
+    data[i + 1] = avg;
+    data[i + 2] = avg;
+  }
   // Display Result
+  ctx.putImageData(imageBase, 0, 0);
   // Update Status
-
   updateStatus("Grey");
 };
 
