@@ -41,7 +41,7 @@ const toBW = () => {
   ctx.drawImage(image, 0, 0);
   // Get Image Data
   let imageBase = ctx.getImageData(0, 0, image.width, image.height);
-  let data = pixel.data;
+  let data = imageBase.data;
   // Alter Each Pixel
   let i = 0;
   for (i = 0; i < data.length; i += 4) {
@@ -59,4 +59,17 @@ const toBW = () => {
 // Function to Color Image
 const toColor = () => {
   updateStatus("Color");
+};
+
+// Function to Download Image
+const downloadImage = () => {
+  // TODO: Globalize Context
+  const c = document.getElementById("canvas");
+  const ctx = c.getContext("2d");
+  const link = document.getElementById("link");
+  link.setAttribute("download", "Colorized.png");
+  link.setAttribute(
+    "href",
+    canvas.toDataURL("image/png").replace("image/png", "image/octet-stream")
+  );
 };
