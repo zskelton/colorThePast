@@ -58,7 +58,28 @@ const toBW = () => {
 
 // Function to Color Image
 const toColor = () => {
-  updateStatus("Color");
+  // TODO: Globalize Context
+  const image = document.getElementById("image");
+  const c = document.getElementById("canvas");
+  const ctx = c.getContext("2d");
+  // Copy Image
+  ctx.drawImage(image, 0, 0);
+  // Get Image Data
+  let imageBase = ctx.getImageData(0, 0, image.width, image.height);
+  let data = imageBase.data;
+  // Alter Each Pixel
+  // New grayscale image = ( (0.3 * R) + (0.59 * G) + (0.11 * B) ).
+  // https://www.tutorialspoint.com/dip/grayscale_to_rgb_conversion.htm
+  let i = 0;
+  for (i = 0; i < data.length; i += 4) {
+    data[i + 0] = data[i + 0] * 0.3; // Red * 0.3
+    data[i + 1] = data[i + 1] * 0.3; // Green * 0.59
+    data[i + 2] = data[i + 2] * 0.3; // Blue * 0.11
+  }
+  // Display Result
+  ctx.putImageData(imageBase, 0, 0);
+  // Update Status
+  updateStatus("Grey");
 };
 
 // Function to Download Image
@@ -67,6 +88,7 @@ const downloadImage = () => {
   const c = document.getElementById("canvas");
   const ctx = c.getContext("2d");
   const link = document.getElementById("link");
+  // Set Link to new Image
   link.setAttribute("download", "Colorized.png");
   link.setAttribute(
     "href",
